@@ -1,0 +1,243 @@
+// !$*UTF8*$!
+{
+	089C165DFE840E0CC02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {822, 548}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 45}";
+			sepNavWindowFrame = "{{15, 65}, {881, 676}}";
+		};
+	};
+	256AC3D80F4B6AC300CF3369 /* harvagentAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {597, 455}}";
+			sepNavSelRange = "{427, 10}";
+			sepNavVisRange = "{44, 655}";
+		};
+	};
+	256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {817, 4381}}";
+			sepNavSelRange = "{1068, 0}";
+			sepNavVisRange = "{1904, 537}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeArchitecturePreference = i386;
+		activeBuildConfigurationName = Debug;
+		activeExecutable = E4ADD064131459A80065409E /* harvagent */;
+		activeTarget = 8D1107260486CEB800E47090 /* harvagent */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* harvagent */,
+		);
+		breakpoints = (
+		);
+		codeSenseManager = E4ADD082131459BE0065409E /* Code sense */;
+		executables = (
+			E4ADD064131459A80065409E /* harvagent */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					317,
+					20,
+					48,
+					43,
+					43,
+					20,
+					166,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+					PBXFileDataSource_Path_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 320272499;
+			PBXWorkspaceStateSaveDate = 320272499;
+		};
+		perUserProjectItems = {
+			E4997DA41317096F00B29CB1 /* PBXTextBookmark */ = E4997DA41317096F00B29CB1 /* PBXTextBookmark */;
+			E4997DF61317234C00B29CB1 /* PBXTextBookmark */ = E4997DF61317234C00B29CB1 /* PBXTextBookmark */;
+			E4997EBE1317272100B29CB1 /* PBXTextBookmark */ = E4997EBE1317272100B29CB1 /* PBXTextBookmark */;
+			E4997EBF1317272100B29CB1 /* PBXTextBookmark */ = E4997EBF1317272100B29CB1 /* PBXTextBookmark */;
+			E4997ECB1317272100B29CB1 /* PBXTextBookmark */ = E4997ECB1317272100B29CB1 /* PBXTextBookmark */;
+			E4997ECC1317272100B29CB1 /* PBXTextBookmark */ = E4997ECC1317272100B29CB1 /* PBXTextBookmark */;
+			E4997EDA1317272100B29CB1 /* PBXTextBookmark */ = E4997EDA1317272100B29CB1 /* PBXTextBookmark */;
+			E4ADD18713148D080065409E /* PlistBookmark */ = E4ADD18713148D080065409E /* PlistBookmark */;
+		};
+		sourceControlManager = E4ADD081131459BE0065409E /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {597, 368}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 239}";
+		};
+	};
+	8D1107260486CEB800E47090 /* harvagent */ = {
+		activeExec = 0;
+		executables = (
+			E4ADD064131459A80065409E /* harvagent */,
+		);
+	};
+	E4997D481316FFAC00B29CB1 /* CustomBGView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {597, 343}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 196}";
+		};
+	};
+	E4997D491316FFAC00B29CB1 /* CustomBGView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {597, 390}}";
+			sepNavSelRange = "{468, 0}";
+			sepNavVisRange = "{39, 470}";
+		};
+	};
+	E4997D76131706C800B29CB1 /* harvest.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {597, 2431}}";
+			sepNavSelRange = "{1893, 4}";
+			sepNavVisRange = "{3090, 860}";
+		};
+	};
+	E4997DA41317096F00B29CB1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E4997D491316FFAC00B29CB1 /* CustomBGView.m */;
+		name = "CustomBGView.m: 25";
+		rLen = 0;
+		rLoc = 468;
+		rType = 0;
+		vrLen = 470;
+		vrLoc = 39;
+	};
+	E4997DF61317234C00B29CB1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 239;
+		vrLoc = 0;
+	};
+	E4997EBE1317272100B29CB1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E4997D76131706C800B29CB1 /* harvest.h */;
+		name = "harvest.h: 92";
+		rLen = 4;
+		rLoc = 1893;
+		rType = 0;
+		vrLen = 860;
+		vrLoc = 3090;
+	};
+	E4997EBF1317272100B29CB1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E4997D481316FFAC00B29CB1 /* CustomBGView.h */;
+		name = "CustomBGView.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 196;
+		vrLoc = 0;
+	};
+	E4997ECB1317272100B29CB1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* harvagentAppDelegate.h */;
+		name = "harvagentAppDelegate.h: 19";
+		rLen = 10;
+		rLoc = 427;
+		rType = 0;
+		vrLen = 655;
+		vrLoc = 44;
+	};
+	E4997ECC1317272100B29CB1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */;
+		name = "harvagentAppDelegate.m: 26";
+		rLen = 0;
+		rLoc = 612;
+		rType = 0;
+		vrLen = 623;
+		vrLoc = 168;
+	};
+	E4997EDA1317272100B29CB1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */;
+		name = "harvagentAppDelegate.m: 169";
+		rLen = 0;
+		rLoc = 4872;
+		rType = 0;
+		vrLen = 1049;
+		vrLoc = 4793;
+	};
+	E4ADD064131459A80065409E /* harvagent */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = harvagent;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	E4ADD081131459BE0065409E /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	E4ADD082131459BE0065409E /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	E4ADD18713148D080065409E /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* harvagent-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			LSUIElement,
+		);
+		name = "/Users/byang/harvagent/harvagent-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+}
