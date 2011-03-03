@@ -15,14 +15,14 @@
 #define MAX_FIELD_LEN 256
 
 typedef struct HarvCon {
-	char *accountStr;
+	char accountStr[MAX_FIELD_LEN];
     CURL *curl;
 	struct curl_slist *cookies;
 } HarvCon, *HarvConPtr;
 
 typedef struct UserDomain {
-	char *userStr;
-	char *passStr;
+	char userStr[MAX_FIELD_LEN];
+	char passStr[MAX_FIELD_LEN];
 } UserDomain;
 
 /*

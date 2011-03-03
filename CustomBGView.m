@@ -19,11 +19,39 @@
     return self;
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-    // Drawing code here.
-	// set any NSColor for filling, say white:
-    [[NSColor blueColor] setFill];
-    NSRectFill(dirtyRect);
+/*
+#define menuItem ([self enclosingMenuItem])
+
+- (void) drawRect: (NSRect) rect {
+    BOOL isHighlighted = [menuItem isHighlighted];
+    if (isHighlighted) {
+        [[NSColor selectedMenuItemColor] set];
+        [NSBezierPath fillRect:rect];
+    } else {
+        [super drawRect: rect];
+    }
+}
+*/
+- (void)drawRect:(NSRect)rect {
+ [[NSColor selectedMenuItemColor] set];
+ [NSBezierPath fillRect:rect];
+}
+
+/*
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+	printf("mouseMoved in CustomBGView\n");
+}
+*/
+/*
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+*/
+- (void)viewDidMoveToWindow
+{
+	//[[self window] makeFirstResponder:noteLabel];
 }
 
 @end
