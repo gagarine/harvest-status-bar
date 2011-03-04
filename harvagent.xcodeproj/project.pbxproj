@@ -16,6 +16,8 @@
 		E4997D4A1316FFAC00B29CB1 /* CustomBGView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4997D491316FFAC00B29CB1 /* CustomBGView.m */; };
 		E4997D9F1317081400B29CB1 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4997D9E1317081400B29CB1 /* libcurl.dylib */; };
 		E4997DA11317082100B29CB1 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4997DA01317082100B29CB1 /* libxml2.dylib */; };
+		E49A4A10132183FE00C35AD4 /* hidle.png in Resources */ = {isa = PBXBuildFile; fileRef = E49A4A0F132183FE00C35AD4 /* hidle.png */; };
+		E49A4AA1132183FE00C35AD4 /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A4AA0132183FE00C35AD4 /* CustomView.m */; };
 		E4B1E6F3131FD74200FAD3DC /* libharvlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4B1E6F2131FD74200FAD3DC /* libharvlib.a */; };
 		E4B457F6131FE8FE00E34765 /* Preferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E4B457F5131FE8FE00E34765 /* Preferences.tiff */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,9 @@
 		E4997D491316FFAC00B29CB1 /* CustomBGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBGView.m; sourceTree = "<group>"; };
 		E4997D9E1317081400B29CB1 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = /usr/lib/libcurl.dylib; sourceTree = "<absolute>"; };
 		E4997DA01317082100B29CB1 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
+		E49A4A0F132183FE00C35AD4 /* hidle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hidle.png; sourceTree = "<group>"; };
+		E49A4A9F132183FE00C35AD4 /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
+		E49A4AA0132183FE00C35AD4 /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
 		E4B1E6F2131FD74200FAD3DC /* libharvlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharvlib.a; path = ../iPhoneDev/xcodebuid/Debug/libharvlib.a; sourceTree = SOURCE_ROOT; };
 		E4B457F5131FE8FE00E34765 /* Preferences.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Preferences.tiff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +70,8 @@
 				E48D1B8F131E880600C3100F /* harvest.h */,
 				E4904986131BF176002F6EBE /* NumberTextFieldFormatter.h */,
 				E4904987131BF176002F6EBE /* NumberTextFieldFormatter.m */,
+				E49A4A9F132183FE00C35AD4 /* CustomView.h */,
+				E49A4AA0132183FE00C35AD4 /* CustomView.m */,
 				E4997D481316FFAC00B29CB1 /* CustomBGView.h */,
 				E4997D491316FFAC00B29CB1 /* CustomBGView.m */,
 				256AC3D80F4B6AC300CF3369 /* harvagentAppDelegate.h */,
@@ -126,6 +133,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E49A4A0F132183FE00C35AD4 /* hidle.png */,
 				E4B457F5131FE8FE00E34765 /* Preferences.tiff */,
 				8D1107310486CEB800E47090 /* harvagent-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -196,6 +204,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				E4B457F6131FE8FE00E34765 /* Preferences.tiff in Resources */,
+				E49A4A10132183FE00C35AD4 /* hidle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +219,7 @@
 				256AC3DA0F4B6AC300CF3369 /* harvagentAppDelegate.m in Sources */,
 				E4997D4A1316FFAC00B29CB1 /* CustomBGView.m in Sources */,
 				E4904988131BF176002F6EBE /* NumberTextFieldFormatter.m in Sources */,
+				E49A4AA1132183FE00C35AD4 /* CustomView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

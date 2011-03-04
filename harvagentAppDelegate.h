@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "harvest.h"
 #import "CustomBGView.h"
+#import "CustomView.h"
 
 #define TODAY_MENU_BASE 1000
 #define YESTERDAY_MENU_BASE 2000
@@ -54,10 +55,16 @@
 	
 	BOOL hideLoginFlag;
 	IBOutlet NSButton *showLoginBtn;
+
+	CustomView *stateView;
+	
+	NSDate *startDate;
+	NSTimer *standTimer;
 }
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) NSString *noteStr;
+@property (assign) NSDate *startDate;
 
 DayEntry *activeDayEntry;
 HarvCon myConnect;
@@ -80,7 +87,10 @@ Daily beforeDaily;
 - (void)someAction:(id)sender;
 - (int) retrieveData;
 
-- (void)addDayEntry:(int)menuIndex;
+- (void)addDayEntry;
 - (void)clearMenu;
+
+- (void)showhideMenu;
+- (void)restartTimer;
 
 @end

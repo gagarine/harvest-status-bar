@@ -12,6 +12,7 @@
 
 @synthesize window;
 @synthesize noteStr;
+@synthesize startDate;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application 
@@ -23,12 +24,26 @@
 	stoppedDayEntry=0;
 	hideLoginFlag=FALSE;
 	activeDayEntry=NULL;
+	standTimer=NULL;
+	startDate=NULL;
 	
 	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 	//[statusItem setMenu:statusMenu];
-	[statusItem setTitle:@"Connecting..."];
-	[statusItem setHighlightMode:YES];
+	//NSImage *hImage = [NSImage imageNamed:@"hidle.png"];
+	//[statusItem setImage:hImage];
+	//[statusItem setTitle:@"Connecting..."];
 	
+	NSRect bgFrm;
+	bgFrm.origin.x=0;
+	bgFrm.origin.y=0;
+	bgFrm.size.width=133;
+	bgFrm.size.height=19;
+	stateView=[[CustomView alloc] initWithFrame:bgFrm controller:self];
+	[stateView updateIndText:@"Connecting..."];
+	
+	[statusItem setView:stateView];
+	[statusItem setHighlightMode:YES];
+
 	[statusItem setAction:@selector(popMenu:)];
 	[statusItem setTarget:self];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -56,6 +71,10 @@
 	}
 }
 
+-(void)showhideMenu
+{
+	[self popMenu:nil];
+}
 
 - (IBAction)menuProfile:(id)sender 
 {
@@ -108,15 +127,21 @@
 	[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }
 
-- (IBAction)menuDayEntry:(id)sender
+- (void)menuDayEntryAction:(id)sender
 {
-	printf("menuDayEntry:%d\n",[sender tag]);
-	
 	Timer retTimer={0};
 	
 	harvest_toggletimer(&myConnect,[sender tag],&retTimer);	
 	[self clearMenu];
 	[self retrieveData];
+	
+}
+- (IBAction)menuDayEntry:(id)sender
+{
+	printf("menuDayEntry:%d\n",[sender tag]);
+	[stateView updateIndText:@"Connecting..."];
+	[self performSelector:@selector(menuDayEntryAction:) withObject:sender afterDelay:0.1];
+
 }
 
 - (IBAction)menuOldDayEntry:(id)sender
@@ -127,9 +152,11 @@
 
 - (IBAction)menuProjectTask:(id)sender
 {
-	printf("menuProjectTask:%d\n",[sender tag]);
-	[self addDayEntry:curMenuTag];
-	
+	printf("menuProjectTask:%d,curMenuTag:%d\n",[sender tag],curMenuTag);
+	//[self addDayEntry:curMenuTag];
+	[stateView updateIndText:@"Connecting..."];
+	[self performSelector:@selector(addDayEntry) withObject:nil afterDelay:0.1];
+
 }
 
 - (IBAction)btnConnect:(NSButton *)sender
@@ -204,9 +231,14 @@
 	if (timerFlag) {
 		//stoppedDayEntry=activeDayEntry->idV;
 		[timerBtn setTitle:@"Start Timer"];
+		if (standTimer) {
+			[standTimer invalidate];
+			standTimer=NULL;
+		}		
 	}
 	else {
 		[timerBtn setTitle:@"Stop Timer"];
+		[self restartTimer];
 	}
 	timerFlag=!timerFlag;
 
@@ -228,6 +260,19 @@
 - (void)menuWillOpen:(NSMenu *)menu
 {
 	printf("menuWillOpen\n");
+	if (statusMenu==menu) {
+		[stateView setHighFlag:TRUE];
+	}
+	//[entryViewController.window setStyleMask:NSBorderlessWindowMask];
+	//[entryViewController.window setFrame:[entryView frame] display:YES];
+	
+}
+- (void)menuDidClose:(NSMenu *)menu
+{
+	printf("menuDidClose\n");
+	if (statusMenu==menu) {
+		[stateView setHighFlag:FALSE];
+	}
 	//[entryViewController.window setStyleMask:NSBorderlessWindowMask];
 	//[entryViewController.window setFrame:[entryView frame] display:YES];
 	
@@ -268,9 +313,53 @@ int getDayOffYear(NSDate *inDate)
 	return dayOfYear;
 }
 
+- (void)minuterTimerAction
+{
+	minuValue=minuValue+1;
+	if (60==minuValue) {
+		hourValue=hourValue+1;
+		minuValue=0;
+	}
+	[hourLabel setStringValue:[NSString stringWithFormat:@"%02d",hourValue]];
+	[minuLabel setStringValue:[NSString stringWithFormat:@"%02d",minuValue]];
+
+	NSString *statusTitle = [NSString stringWithFormat:@"%02d:%02d %s",hourValue,minuValue,activeDayEntry->task];
+	//[statusItem setTitle:statusTitle];
+	[stateView updateIndText:statusTitle];
+		
+	//time label
+	NSDateFormatter *showDateFormat = [[NSDateFormatter alloc] init];
+	[showDateFormat setDateFormat:@"HH:mm"];
+	
+	NSDate *today = [NSDate date]; 
+	NSString *startDateString = [showDateFormat stringFromDate:startDate]; 
+	NSString *endDateString = [showDateFormat stringFromDate:today]; 
+	[showDateFormat release];
+	
+	NSString *tmLBStr = [NSString stringWithFormat:@"[%@ - %@]",startDateString,endDateString];
+	[timeLabel setStringValue:tmLBStr];
+	
+	//menu item title
+	NSMenuItem *curItem =[statusMenu itemWithTag:activeDayEntry->idV];
+	NSString *itemTitle =[NSString stringWithFormat:@"%02d:%02d %s > %s > %s",hourValue,minuValue, activeDayEntry->client,activeDayEntry->project,activeDayEntry->task];
+	[curItem setTitle:itemTitle];
+
+	
+}
+
+- (void)restartTimer
+{
+	if (standTimer) {
+		[standTimer invalidate];
+		standTimer=NULL;
+	}
+	standTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(minuterTimerAction) userInfo:nil repeats:YES];	
+}
 
 - (void)dispActiveDayEntry:(DayEntry *)dayEntry
 {
+	[self restartTimer];
+	
 	NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:@" " action:NULL keyEquivalent:@""];
 	[newItem setTag:0];
 	[statusMenu insertItem:newItem atIndex:0];
@@ -286,7 +375,6 @@ int getDayOffYear(NSDate *inDate)
 	[projectLabel setStringValue:[NSString stringWithFormat:@"%s (%s)",dayEntry->project,dayEntry->client]];
 	[hourLabel setStringValue:[NSString stringWithFormat:@"%02d",hours]];
 	[minuLabel setStringValue:[NSString stringWithFormat:@"%02d",minutes]];
-	[timeLabel setStringValue:[NSString stringWithUTF8String:dayEntry->timer_started_at]];
 	NSString *tmpNoteStr = [NSString stringWithUTF8String:dayEntry->notes];
 	if ([tmpNoteStr isEqualToString:@"(null)"]) {
 		//[tmpNoteStr release];
@@ -295,11 +383,33 @@ int getDayOffYear(NSDate *inDate)
 	[noteLabel setStringValue:tmpNoteStr];
 	noteStr = [[NSString stringWithString:tmpNoteStr]retain];
 	
+	NSString *dateStr = [NSString stringWithUTF8String:dayEntry->timer_started_at];
+	
+	// <timer_started_at type="datetime">Fri, 04 Mar 2011 15:23:51 +0000</timer_started_at>
+	// Convert string to date object
+	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	[dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss ZZZ"];
+	startDate = [[dateFormat dateFromString:dateStr] retain];  
+	[dateFormat release];
+
+	NSDateFormatter *showDateFormat = [[NSDateFormatter alloc] init];
+	[showDateFormat setDateFormat:@"HH:mm"];
+	
+	NSDate *today = [NSDate date]; 
+	NSString *startDateString = [showDateFormat stringFromDate:startDate]; 
+	NSString *endDateString = [showDateFormat stringFromDate:today]; 
+	[showDateFormat release];
+	
+	NSString *tmLBStr = [NSString stringWithFormat:@"[%@ - %@]",startDateString,endDateString];
+	[timeLabel setStringValue:tmLBStr];
+	
 	hourValue = hours;
 	minuValue = minutes;
 	NSString *statusTitle = [NSString stringWithFormat:@"%02d:%02d %s",hourValue,minuValue,dayEntry->task];
-	[statusItem setTitle:statusTitle];
+	//[statusItem setTitle:statusTitle];
+	[stateView updateIndText:statusTitle];
 	timerFlag=TRUE;
+	
 }
 
 - (void)clearMenu
@@ -395,6 +505,7 @@ int getDayOffYear(NSDate *inDate)
 	if (todayCnt>0) {
 		NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:@"Today" action:NULL keyEquivalent:@""];
 		[newItem setTag:0];
+		[newItem setEnabled:NO];
 		[statusMenu insertItem:newItem atIndex:menuCnt];
 		menuCnt++;
 		
@@ -406,7 +517,10 @@ int getDayOffYear(NSDate *inDate)
 				[self dispActiveDayEntry:curDayEntry];
 				menuCnt+=2;
 			}
-			NSString *itemTitle =[NSString stringWithFormat:@"%05.2f %s > %s > %s",curDayEntry->hours, curDayEntry->client,curDayEntry->project,curDayEntry->task];
+			int hours = curDayEntry->hours;
+			int minutes=60.0*(curDayEntry->hours-hours*1.0);
+
+			NSString *itemTitle =[NSString stringWithFormat:@"%02d:%02d %s > %s > %s",hours,minutes, curDayEntry->client,curDayEntry->project,curDayEntry->task];
 			NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:itemTitle action:@selector(menuDayEntry:) keyEquivalent:@""];
 			//[newItem setTag:TODAY_MENU_BASE+curCnt];
 			[newItem setTag:curDayEntry->idV];
@@ -433,13 +547,17 @@ int getDayOffYear(NSDate *inDate)
 		
 		NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:weekDayYes action:NULL keyEquivalent:@""];
 		[newItem setTag:0];
+		[newItem setEnabled:NO];
 		[statusMenu insertItem:newItem atIndex:menuCnt];
 		menuCnt++;
 		
 		int curCnt=0;
 		DayEntry *curDayEntry = yesterdayDaily.dayentryArray;
 		while (curDayEntry) {
-			NSString *itemTitle =[NSString stringWithFormat:@"%05.2f %s > %s > %s",curDayEntry->hours, curDayEntry->client,curDayEntry->project,curDayEntry->task];
+			int hours = curDayEntry->hours;
+			int minutes=60.0*(curDayEntry->hours-hours*1.0);
+			
+			NSString *itemTitle =[NSString stringWithFormat:@"%02d:%02d %s > %s > %s",hours,minutes, curDayEntry->client,curDayEntry->project,curDayEntry->task];
 			NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:itemTitle action:@selector(menuOldDayEntry:) keyEquivalent:@""];
 			//[newItem setTag:YESTERDAY_MENU_BASE+curCnt];
 			[newItem setTag:curDayEntry->idV];
@@ -463,13 +581,17 @@ int getDayOffYear(NSDate *inDate)
 	if (beforeCnt>0) {
 		NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:weekDayBef action:NULL keyEquivalent:@""];
 		[newItem setTag:0];
+		[newItem setEnabled:NO];
 		[statusMenu insertItem:newItem atIndex:menuCnt];
 		menuCnt++;
 		
 		int curCnt=0;
 		DayEntry *curDayEntry = beforeDaily.dayentryArray;
 		while (curDayEntry) {
-			NSString *itemTitle =[NSString stringWithFormat:@"%05.2f %s > %s > %s",curDayEntry->hours, curDayEntry->client,curDayEntry->project,curDayEntry->task];
+			int hours = curDayEntry->hours;
+			int minutes=60.0*(curDayEntry->hours-hours*1.0);
+			
+			NSString *itemTitle =[NSString stringWithFormat:@"%02d:%02d %s > %s > %s",hours,minutes, curDayEntry->client,curDayEntry->project,curDayEntry->task];
 			NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:itemTitle action:@selector(menuOldDayEntry:) keyEquivalent:@""];
 			//[newItem setTag:BEFORE_MENU_BASE+curCnt];
 			[newItem setTag:curDayEntry->idV];
@@ -491,6 +613,7 @@ int getDayOffYear(NSDate *inDate)
 	if (projectCnt>0) {
 		NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:@"Active Projects" action:NULL keyEquivalent:@""];
 		[newItem setTag:0];
+		[newItem setEnabled:NO];
 		[statusMenu insertItem:newItem atIndex:menuCnt];
 		menuCnt++;
 		
@@ -598,8 +721,9 @@ int getDayOffYear(NSDate *inDate)
 }
 
 
-- (void)addDayEntry:(int)menuIndex
+- (void)addDayEntry
 {
+	int menuIndex = curMenuTag;
 	int curProj=menuIndex/1000;
 	int curTask=menuIndex-1000*curProj;
 	int indProj=0;
