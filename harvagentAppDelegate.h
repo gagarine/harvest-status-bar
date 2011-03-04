@@ -60,6 +60,12 @@
 	
 	NSDate *startDate;
 	NSTimer *standTimer;
+	
+	int yearYes;
+	int dayYes;
+	int yearBef;
+	int dayBef;
+	
 }
 
 @property (assign) IBOutlet NSWindow *window;

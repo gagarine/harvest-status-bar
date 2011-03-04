@@ -27,6 +27,12 @@
 	standTimer=NULL;
 	startDate=NULL;
 	
+	yearYes=0;
+	dayYes=0;
+	yearBef=0;
+	dayBef=0;
+	
+	
 	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 	//[statusItem setMenu:statusMenu];
 	//NSImage *hImage = [NSImage imageNamed:@"hidle.png"];
@@ -147,6 +153,32 @@
 - (IBAction)menuOldDayEntry:(id)sender
 {
 	printf("menuOldDayEntry:%d\n",[sender tag]);
+	DayEntry *curDayEntry = yesterdayDaily.dayentryArray;
+	while (curDayEntry) {
+		if (curDayEntry->idV==[sender tag]) {
+			NSString *urlStr = [NSString stringWithFormat:@"https://%@.harvestapp.com/daily/%d/%d/%d",accountStr,curDayEntry->user_id,dayYes,yearYes];
+			NSURL *someURL = [NSURL URLWithString:urlStr];
+			[[NSWorkspace sharedWorkspace] openURL:someURL];
+			break;
+		}
+		curDayEntry=curDayEntry->next;
+	}
+}
+
+- (IBAction)menuOlderDayEntry:(id)sender
+{
+	printf("menuOlderDayEntry:%d\n",[sender tag]);
+	DayEntry *curDayEntry = beforeDaily.dayentryArray;
+	while (curDayEntry) {
+		if (curDayEntry->idV==[sender tag]) {
+			NSString *urlStr = [NSString stringWithFormat:@"https://%@.harvestapp.com/daily/%d/%d/%d",accountStr,curDayEntry->user_id,dayBef,yearBef];
+			NSURL *someURL = [NSURL URLWithString:urlStr];
+			[[NSWorkspace sharedWorkspace] openURL:someURL];
+			break;
+		}
+		curDayEntry=curDayEntry->next;
+	}
+	
 	
 }
 
@@ -470,8 +502,8 @@ int getDayOffYear(NSDate *inDate)
 
 	NSDateComponents *compsYes = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) 
 									 fromDate:yesterday];
-	int yearYes = [compsYes year];
-	int dayYes = getDayOffYear(yesterday);
+	yearYes = [compsYes year];
+	dayYes = getDayOffYear(yesterday);
 	
 	NSDateFormatter* theDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[theDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
@@ -485,8 +517,8 @@ int getDayOffYear(NSDate *inDate)
 	
 	NSDateComponents *compsBef = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) 
 										fromDate:thedaybefore];
-	int yearBef = [compsBef year];
-	int dayBef = getDayOffYear(thedaybefore);
+	yearBef = [compsBef year];
+	dayBef = getDayOffYear(thedaybefore);
 	NSString *weekDayBef =  [theDateFormatter stringFromDate:thedaybefore];
 	
 	//get data	
@@ -592,7 +624,7 @@ int getDayOffYear(NSDate *inDate)
 			int minutes=60.0*(curDayEntry->hours-hours*1.0);
 			
 			NSString *itemTitle =[NSString stringWithFormat:@"%02d:%02d %s > %s > %s",hours,minutes, curDayEntry->client,curDayEntry->project,curDayEntry->task];
-			NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:itemTitle action:@selector(menuOldDayEntry:) keyEquivalent:@""];
+			NSMenuItem *newItem= [[NSMenuItem alloc] initWithTitle:itemTitle action:@selector(menuOlderDayEntry:) keyEquivalent:@""];
 			//[newItem setTag:BEFORE_MENU_BASE+curCnt];
 			[newItem setTag:curDayEntry->idV];
 			[newItem setIndentationLevel:1];
