@@ -690,7 +690,7 @@ int getDayOffYear(NSDate *inDate)
 	}
 	
 	if (NULL==activeDayEntry) {
-		[statusItem setTitle:@"Idle"];
+		[stateView updateIndText:@"Idle"];
 	}
 	
 	/*
