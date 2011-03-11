@@ -193,7 +193,6 @@
 
 - (IBAction)onEnter:(id)sender
 {
-	//[self btnConnect:nil];
 	[sender sendAction:@selector(btnConnect:) to:self];
 }
 
