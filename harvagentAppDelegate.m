@@ -191,6 +191,12 @@
 
 }
 
+- (IBAction)onEnter:(id)sender
+{
+	//[self btnConnect:nil];
+	[sender sendAction:@selector(btnConnect:) to:self];
+}
+
 - (IBAction)btnConnect:(NSButton *)sender
 {
 	accountStr = [accountText stringValue];

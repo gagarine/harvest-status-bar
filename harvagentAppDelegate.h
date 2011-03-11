@@ -90,6 +90,8 @@ Daily beforeDaily;
 - (IBAction)btnStartStopTimer:(NSButton *)sender;
 - (IBAction)btnShowLogin:(NSButton *)sender;
 
+- (IBAction)onEnter:(id)sender;
+
 - (void)someAction:(id)sender;
 - (int) retrieveData;
 

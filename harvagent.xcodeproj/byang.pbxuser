@@ -10,17 +10,17 @@
 	};
 	256AC3D80F4B6AC300CF3369 /* harvagentAppDelegate.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {819, 1300}}";
-			sepNavSelRange = "{1641, 11}";
-			sepNavVisRange = "{1382, 633}";
+			sepNavIntBoundsRect = "{{0, 0}, {733, 1365}}";
+			sepNavSelRange = "{2015, 32}";
+			sepNavVisRange = "{873, 495}";
 			sepNavWindowFrame = "{{143, 61}, {881, 676}}";
 		};
 	};
 	256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1062, 11791}}";
-			sepNavSelRange = "{4725, 0}";
-			sepNavVisRange = "{4320, 633}";
+			sepNavIntBoundsRect = "{{0, 0}, {901, 11986}}";
+			sepNavSelRange = "{3494, 0}";
+			sepNavVisRange = "{611, 1158}";
 			sepNavWindowFrame = "{{143, 61}, {881, 676}}";
 		};
 	};
@@ -32,7 +32,7 @@
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeArchitecturePreference = x86_64;
+		activeArchitecturePreference = i386;
 		activeBuildConfigurationName = Debug;
 		activeExecutable = E4ADD064131459A80065409E /* harvagent */;
 		activeTarget = 8D1107260486CEB800E47090 /* harvagent */;
@@ -95,8 +95,8 @@
 					PBXFileDataSource_Path_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 321539808;
-			PBXWorkspaceStateSaveDate = 321539808;
+			PBXPerProjectTemplateStateSaveDate = 321540716;
+			PBXWorkspaceStateSaveDate = 321540716;
 		};
 		perUserProjectItems = {
 			E409A38913212B4400E7D7C6 /* PBXTextBookmark */ = E409A38913212B4400E7D7C6 /* PBXTextBookmark */;
@@ -105,11 +105,13 @@
 			E409A49013213A7700E7D7C6 /* PBXTextBookmark */ = E409A49013213A7700E7D7C6 /* PBXTextBookmark */;
 			E409A49213213A7700E7D7C6 /* PBXTextBookmark */ = E409A49213213A7700E7D7C6 /* PBXTextBookmark */;
 			E409A4AA13213F2E00E7D7C6 /* PBXTextBookmark */ = E409A4AA13213F2E00E7D7C6 /* PBXTextBookmark */;
-			E409A5A213215D1300E7D7C6 /* PBXTextBookmark */ = E409A5A213215D1300E7D7C6 /* PBXTextBookmark */;
 			E48D1B94131E884600C3100F /* PBXTextBookmark */ = E48D1B94131E884600C3100F /* PBXTextBookmark */;
 			E491E9B2132A51AC00F777E6 /* PBXTextBookmark */ = E491E9B2132A51AC00F777E6 /* PBXTextBookmark */;
-			E491E9B3132A51AC00F777E6 /* XCBuildMessageTextBookmark */ = E491E9B3132A51AC00F777E6 /* XCBuildMessageTextBookmark */;
-			E491E9B7132A51BA00F777E6 /* PBXTextBookmark */ = E491E9B7132A51BA00F777E6 /* PBXTextBookmark */;
+			E491E9C3132A538300F777E6 /* PBXBookmark */ = E491E9C3132A538300F777E6 /* PBXBookmark */;
+			E491E9D3132A559300F777E6 /* PBXTextBookmark */ = E491E9D3132A559300F777E6 /* PBXTextBookmark */;
+			E491E9D7132A559D00F777E6 /* PBXTextBookmark */ = E491E9D7132A559D00F777E6 /* PBXTextBookmark */;
+			E491E9EE132A5C1F00F777E6 /* PBXTextBookmark */ = E491E9EE132A5C1F00F777E6 /* PBXTextBookmark */;
+			E491E9EF132A5C1F00F777E6 /* PBXTextBookmark */ = E491E9EF132A5C1F00F777E6 /* PBXTextBookmark */;
 			E49A4A59132183FE00C35AD4 /* PBXBookmark */ = E49A4A59132183FE00C35AD4 /* PBXBookmark */;
 			E49A4A5A132183FE00C35AD4 /* PBXTextBookmark */ = E49A4A5A132183FE00C35AD4 /* PBXTextBookmark */;
 			E4AB9822131948A700220CED /* PBXTextBookmark */ = E4AB9822131948A700220CED /* PBXTextBookmark */;
@@ -193,16 +195,6 @@
 		vrLen = 580;
 		vrLoc = 2182;
 	};
-	E409A5A213215D1300E7D7C6 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 256AC3D80F4B6AC300CF3369 /* harvagentAppDelegate.h */;
-		name = "harvagentAppDelegate.h: 79";
-		rLen = 11;
-		rLoc = 1641;
-		rType = 0;
-		vrLen = 633;
-		vrLoc = 1382;
-	};
 	E48D1B8F131E880600C3100F /* harvest.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {684, 2691}}";
@@ -245,24 +237,46 @@
 		vrLen = 701;
 		vrLoc = 2667;
 	};
-	E491E9B3132A51AC00F777E6 /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "Format '%d' expects type 'int', but argument 2 has type 'NSInteger'";
+	E491E9C3132A538300F777E6 /* PBXBookmark */ = {
+		isa = PBXBookmark;
 		fRef = 256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */;
-		fallbackIsa = XCBuildMessageTextBookmark;
+	};
+	E491E9D3132A559300F777E6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */;
 		rLen = 1;
-		rLoc = 146;
+		rLoc = 201;
 		rType = 1;
 	};
-	E491E9B7132A51BA00F777E6 /* PBXTextBookmark */ = {
+	E491E9D7132A559D00F777E6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* harvagentAppDelegate.h */;
+		name = "harvagentAppDelegate.h: 93";
+		rLen = 32;
+		rLoc = 2015;
+		rType = 0;
+		vrLen = 495;
+		vrLoc = 873;
+	};
+	E491E9EE132A5C1F00F777E6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */;
+		name = "harvagentAppDelegate.m: 209";
+		rLen = 11;
+		rLoc = 5441;
+		rType = 0;
+		vrLen = 886;
+		vrLoc = 4954;
+	};
+	E491E9EF132A5C1F00F777E6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 256AC3D90F4B6AC300CF3369 /* harvagentAppDelegate.m */;
 		name = "harvagentAppDelegate.m: 147";
 		rLen = 0;
 		rLoc = 3494;
 		rType = 0;
-		vrLen = 733;
-		vrLoc = 3084;
+		vrLen = 1158;
+		vrLoc = 611;
 	};
 	E4964C3D131D4F7D006257D3 /* malloc_error_break */ = {
 		isa = PBXSymbolicBreakpoint;
@@ -275,7 +289,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libSystem.B.dylib;
-		modificationTime = 321540522.894758;
+		modificationTime = 321543114.52349;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 		symbolName = malloc_error_break;
