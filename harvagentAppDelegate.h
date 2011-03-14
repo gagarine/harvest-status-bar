@@ -50,6 +50,7 @@
 	IBOutlet NSTextField *accountText;
 	IBOutlet NSTextField *mailText;
 	IBOutlet NSTextField *passText;
+	IBOutlet NSTextField *statusText;
 	IBOutlet NSProgressIndicator *progressInd;
 	NSString *accountStr;
 	

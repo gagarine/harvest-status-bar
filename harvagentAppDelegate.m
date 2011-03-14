@@ -97,6 +97,7 @@
 	printf("menuPreferences\n");
 	[window makeKeyAndOrderFront:sender];
 	[window center];
+	[statusText setStringValue:@""];
 	
 	NSArray *accountAry = [[NSUserDefaults standardUserDefaults] objectForKey:@"com.havagent.simon"];
 	if ((accountAry!=NULL)||([accountAry count]==3)) {
@@ -202,6 +203,9 @@
 	NSString *mailStr=[mailText stringValue];
 	NSString *passStr=[passText stringValue];
 	
+	[statusText setStringValue:@""];
+	[statusText setNeedsDisplay:YES];
+
 	accountStr=[accountStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	if ([accountStr length]==0) {
 		NSAlert* alert = [NSAlert alertWithMessageText: @"Invalid Input"
@@ -240,10 +244,16 @@
 	NSArray *accountAry = [NSArray arrayWithObjects:accountStr,mailStr,passStr,nil];
 	[[NSUserDefaults standardUserDefaults] setObject:accountAry forKey:@"com.havagent.simon"];
 	[self clearMenu];
-	[self retrieveData];
-
+	int retV=[self retrieveData];
 	[progressInd stopAnimation:sender];
-	[window orderOut:self];
+
+	if (retV!=0) {
+		[statusText setStringValue:@"Fail: Invalid email or password."];
+	}
+	else {
+		[statusText setStringValue:@""];
+		[window orderOut:self];
+	}
 }
 
 - (IBAction)btnShowLogin:(NSButton *)sender
@@ -464,6 +474,7 @@ int getDayOffYear(NSDate *inDate)
 
 - (int) retrieveData
 {
+	int retValue=0;
 	UserDomain myDomain={0};
 
 	memset(&myConnect,0,sizeof(myConnect));
@@ -527,7 +538,11 @@ int getDayOffYear(NSDate *inDate)
 	NSString *weekDayBef =  [theDateFormatter stringFromDate:thedaybefore];
 	
 	//get data	
-	harvest_login(&myConnect,&myDomain,&myUserInfo);
+	retValue=harvest_login(&myConnect,&myDomain,&myUserInfo);
+	if (retValue!=0) {
+		[stateView updateIndText:@"Fail"];
+		return retValue;
+	}
 	
 	harvest_getdaily(&myConnect,&todayDaily);
 	
@@ -856,27 +871,12 @@ int getDayOffYear(NSDate *inDate)
 
 	return YES;
 }
-- (BOOL)textShouldBeginEditing:(NSText *)textObject
-{
-	printf("textShouldBeginEditing \n");
+
+- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor{
+	[statusText setStringValue:@""];
+
+	printf("control:textShouldBeginEditing \n");
 	return YES;
-}
-- (void)textDidBeginEditing:(NSNotification *)aNotification
-{
-	printf("textDidBeginEditing \n");
-}
-- (BOOL)textShouldEndEditing:(NSText *)textObject
-{
-	printf("textShouldEndEditing \n");
-	return YES;
-}
-- (void)textDidEndEditing:(NSNotification *)aNotification
-{
-	printf("textDidEndEditing \n");
-}
-- (void)textDidChange:(NSNotification *)aNotification
-{
-	printf("textDidChange \n");
 }
 
 - (void)someAction:(id)sender
