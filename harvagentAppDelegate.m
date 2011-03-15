@@ -271,10 +271,14 @@
 
 - (IBAction)btnStartStopTimer:(NSButton *)sender
 {
+	int retV=0;
 	Timer retTimer={0};
 	
-	harvest_toggletimer(&myConnect,activeDayEntry->idV,&retTimer);	
+	retV=harvest_toggletimer(&myConnect,activeDayEntry->idV,&retTimer);	
 	
+	if (retV!=0) {
+		return;
+	}
 	if (timerFlag) {
 		//stoppedDayEntry=activeDayEntry->idV;
 		[timerBtn setTitle:@"Start Timer"];
@@ -304,6 +308,13 @@
 	*/
 	return NSZeroRect;
 }
+
+- (void)refreshMenu
+{
+	[self clearMenu];
+	[self retrieveData];
+}
+
 - (void)menuWillOpen:(NSMenu *)menu
 {
 	printf("menuWillOpen\n");
@@ -391,7 +402,7 @@ int getDayOffYear(NSDate *inDate)
 	NSString *itemTitle =[NSString stringWithFormat:@"%02d:%02d %s > %s > %s",hourValue,minuValue, activeDayEntry->client,activeDayEntry->project,activeDayEntry->task];
 	[curItem setTitle:itemTitle];
 
-	
+	[self performSelector:@selector(refreshMenu) withObject:nil afterDelay:0.5];
 }
 
 - (void)restartTimer
@@ -461,15 +472,20 @@ int getDayOffYear(NSDate *inDate)
 
 - (void)clearMenu
 {
+	[stateView updateIndText:@"Connecting..."];
 	[entryView removeFromSuperview];
 	while ([statusMenu numberOfItems]>5) {
 		[statusMenu removeItemAtIndex:0];
+	}
+	if (myConnect.curl==NULL) {
+		return;
 	}
 	harvest_cleandaily(&todayDaily);
 	harvest_cleandaily(&yesterdayDaily);
 	harvest_cleandaily(&beforeDaily);
 	activeDayEntry=NULL;
 	harvest_logout(&myConnect);
+	memset(&myConnect,0,sizeof(myConnect));
 }
 
 - (int) retrieveData
@@ -823,8 +839,9 @@ int getDayOffYear(NSDate *inDate)
 	[self retrieveData];
 }
 
-- (void)updateDayEntry
+- (int)updateDayEntry
 {
+	int retV=0;
 	EntryRequest reqEntry={0};
 	Timer retTimer={0};
 	reqEntry.project_id = activeDayEntry->project_id;
@@ -835,20 +852,31 @@ int getDayOffYear(NSDate *inDate)
 	NSCalendarDate *now = [NSCalendarDate calendarDate];
 	snprintf(reqEntry.spent_at,MAX_FIELD_LEN,"%s",[[now descriptionWithCalendarFormat:@"%a, %d %b %Y"] UTF8String]);	
 	
-	harvest_updateentry(&myConnect,&reqEntry,&retTimer);
+	retV=harvest_updateentry(&myConnect,&reqEntry,&retTimer);
+	return retV;
 	
 }
 
 
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
+	int retV=0;
+	BOOL retB=YES;
 	printf("control:textShouldEndEditing \n");
 	if ((NSTextField *)control==hourLabel) 
 	{
 		int newHourValue = [[hourLabel stringValue] integerValue];
 		if (newHourValue!=hourValue) {
 			hourValue=newHourValue;
-			[self updateDayEntry];
+			retV=[self updateDayEntry];
+			if (retV!=0) {
+				retB=NO;
+			}
+			else {
+				NSString *statusTitle = [NSString stringWithFormat:@"%02d:%02d %s",hourValue,minuValue,activeDayEntry->task];
+				//[statusItem setTitle:statusTitle];
+				[stateView updateIndText:statusTitle];				
+			}		
 		}
 	}
 	else if ((NSTextField *)control==minuLabel) 
@@ -856,7 +884,15 @@ int getDayOffYear(NSDate *inDate)
 		int newMinuValue = [[minuLabel stringValue] integerValue];
 		if (newMinuValue!=minuValue) {
 			minuValue=newMinuValue;
-			[self updateDayEntry];
+			retV=[self updateDayEntry];
+			if (retV!=0) {
+				retB=NO;
+			}
+			else {
+				NSString *statusTitle = [NSString stringWithFormat:@"%02d:%02d %s",hourValue,minuValue,activeDayEntry->task];
+				//[statusItem setTitle:statusTitle];
+				[stateView updateIndText:statusTitle];
+			}
 		}
 	}
 	else if ((NSTextField *)control==noteLabel)
@@ -865,11 +901,17 @@ int getDayOffYear(NSDate *inDate)
 		if (![newNoteStr isEqualToString:noteStr]) {
 			[noteStr release];
 			noteStr = [NSString stringWithString:newNoteStr];
-			[self updateDayEntry];
+			retV=[self updateDayEntry];
+			if (retV!=0) {
+				retB=NO;
+			}
 		}
 	}
-
-	return YES;
+	
+	if (!retB) {
+		[self performSelector:@selector(clearMenu) withObject:nil afterDelay:0.1];
+	}
+	return retB;
 }
 
 - (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor{
