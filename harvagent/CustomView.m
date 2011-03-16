@@ -119,4 +119,9 @@
     //[self setNeedsDisplay:YES];
 }
 
+- (BOOL)acceptsFirstResponder
+{
+    return TRUE;
+}
+
 @end

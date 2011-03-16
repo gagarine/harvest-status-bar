@@ -12,13 +12,13 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		E40951F11330FCBB00FA1518 /* libharvlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E40951F01330FCBB00FA1518 /* libharvlib.a */; };
 		E4904988131BF176002F6EBE /* NumberTextFieldFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4904987131BF176002F6EBE /* NumberTextFieldFormatter.m */; };
 		E4997D4A1316FFAC00B29CB1 /* CustomBGView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4997D491316FFAC00B29CB1 /* CustomBGView.m */; };
 		E4997D9F1317081400B29CB1 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4997D9E1317081400B29CB1 /* libcurl.dylib */; };
 		E4997DA11317082100B29CB1 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4997DA01317082100B29CB1 /* libxml2.dylib */; };
 		E49A4A10132183FE00C35AD4 /* hidle.png in Resources */ = {isa = PBXBuildFile; fileRef = E49A4A0F132183FE00C35AD4 /* hidle.png */; };
 		E49A4AA1132183FE00C35AD4 /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A4AA0132183FE00C35AD4 /* CustomView.m */; };
-		E4B3CD57132FA00500FEF11B /* libharvlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4B3CD56132FA00500FEF11B /* libharvlib.a */; };
 		E4B457F6131FE8FE00E34765 /* Preferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E4B457F5131FE8FE00E34765 /* Preferences.tiff */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +35,8 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* harvagent-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "harvagent-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* harvagent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = harvagent.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E48D1B8F131E880600C3100F /* harvest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = harvest.h; sourceTree = "<group>"; };
+		E40951F01330FCBB00FA1518 /* libharvlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libharvlib.a; sourceTree = "<group>"; };
+		E40951F21330FCD000FA1518 /* harvest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = harvest.h; sourceTree = "<group>"; };
 		E4904986131BF176002F6EBE /* NumberTextFieldFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberTextFieldFormatter.h; sourceTree = "<group>"; };
 		E4904987131BF176002F6EBE /* NumberTextFieldFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberTextFieldFormatter.m; sourceTree = "<group>"; };
 		E4997D481316FFAC00B29CB1 /* CustomBGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBGView.h; sourceTree = "<group>"; };
@@ -45,7 +46,6 @@
 		E49A4A0F132183FE00C35AD4 /* hidle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hidle.png; sourceTree = "<group>"; };
 		E49A4A9F132183FE00C35AD4 /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
 		E49A4AA0132183FE00C35AD4 /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
-		E4B3CD56132FA00500FEF11B /* libharvlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libharvlib.a; sourceTree = "<group>"; };
 		E4B457F5131FE8FE00E34765 /* Preferences.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Preferences.tiff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,7 +57,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				E4997D9F1317081400B29CB1 /* libcurl.dylib in Frameworks */,
 				E4997DA11317082100B29CB1 /* libxml2.dylib in Frameworks */,
-				E4B3CD57132FA00500FEF11B /* libharvlib.a in Frameworks */,
+				E40951F11330FCBB00FA1518 /* libharvlib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +67,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E48D1B8F131E880600C3100F /* harvest.h */,
+				E40951F21330FCD000FA1518 /* harvest.h */,
 				E4904986131BF176002F6EBE /* NumberTextFieldFormatter.h */,
 				E4904987131BF176002F6EBE /* NumberTextFieldFormatter.m */,
 				E49A4A9F132183FE00C35AD4 /* CustomView.h */,
@@ -109,7 +109,7 @@
 		29B97314FDCFA39411CA2CEA /* harvagent */ = {
 			isa = PBXGroup;
 			children = (
-				E4B3CD56132FA00500FEF11B /* libharvlib.a */,
+				E40951F01330FCBB00FA1518 /* libharvlib.a */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -294,7 +294,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
 			};

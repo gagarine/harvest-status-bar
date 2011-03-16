@@ -77,6 +77,8 @@ typedef struct DayEntry {
 	char notes[MAX_FIELD_LEN];
 	char created_at[MAX_FIELD_LEN];
 	char updated_at[MAX_FIELD_LEN];
+	char started_at[MAX_FIELD_LEN];
+	char ended_at[MAX_FIELD_LEN];
 	char timer_started_at[MAX_FIELD_LEN];
 	struct DayEntry *next;
 } DayEntry;

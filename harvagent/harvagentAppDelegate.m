@@ -145,7 +145,7 @@
 }
 - (IBAction)menuDayEntry:(id)sender
 {
-	printf("menuDayEntry:%d\n",[sender tag]);
+	//printf("menuDayEntry:%d\n",[sender tag]);
 	[stateView updateIndText:@"Connecting..."];
 	[self performSelector:@selector(menuDayEntryAction:) withObject:sender afterDelay:0.1];
 
@@ -153,7 +153,7 @@
 
 - (IBAction)menuOldDayEntry:(id)sender
 {
-	printf("menuOldDayEntry:%d\n",[sender tag]);
+	//printf("menuOldDayEntry:%d\n",[sender tag]);
 	DayEntry *curDayEntry = yesterdayDaily.dayentryArray;
 	while (curDayEntry) {
 		if (curDayEntry->idV==[sender tag]) {
@@ -168,7 +168,7 @@
 
 - (IBAction)menuOlderDayEntry:(id)sender
 {
-	printf("menuOlderDayEntry:%d\n",[sender tag]);
+	//printf("menuOlderDayEntry:%d\n",[sender tag]);
 	DayEntry *curDayEntry = beforeDaily.dayentryArray;
 	while (curDayEntry) {
 		if (curDayEntry->idV==[sender tag]) {
@@ -185,7 +185,7 @@
 
 - (IBAction)menuProjectTask:(id)sender
 {
-	printf("menuProjectTask:%d,curMenuTag:%d\n",[sender tag],curMenuTag);
+	//printf("menuProjectTask:%d,curMenuTag:%d\n",[sender tag],curMenuTag);
 	//[self addDayEntry:curMenuTag];
 	[stateView updateIndText:@"Connecting..."];
 	[self performSelector:@selector(addDayEntry) withObject:nil afterDelay:0.1];
@@ -258,11 +258,40 @@
 
 - (IBAction)btnShowLogin:(NSButton *)sender
 {
+	NSString *listPath=@"~/Library/LaunchAgents/com.simon.harvest.plist";
+	listPath =[listPath stringByExpandingTildeInPath];
 	if ([sender state]==NSOnState) {
 		hideLoginFlag=FALSE;
+		NSString *exePath = [[NSBundle mainBundle] executablePath];
+		NSString *listCont =[NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+							 "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">"
+							 "<plist version=\"1.0\">"
+							 "<dict>"
+							 "<key>Label</key>"
+							 "<string>com.simon.harvest</string>"
+							 "<key>ProgramArguments</key>"
+							 "<array>"
+							 "<string>%@</string>"
+							 "</array>"
+							 "<key>KeepAlive</key>"
+							 "<true/>"
+							 "</dict>"
+							 "</plist>",exePath];
+		NSError *error;
+		BOOL res=[listCont writeToFile:listPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+		if (!res && error) {
+			NSLog(@"oops: %@", error);
+		}
 	}
 	else {
 		hideLoginFlag=TRUE;
+		
+		NSFileManager* fm = [[[NSFileManager alloc] init] autorelease];
+		NSError* err = nil;
+		BOOL res=[fm removeItemAtPath:listPath error:&err];
+		if (!res && err) {
+			NSLog(@"oops: %@", err);
+		}
 	}
 	
 	[[NSUserDefaults standardUserDefaults] setBool:hideLoginFlag forKey:@"com.havagent.simonshow"];
@@ -292,7 +321,11 @@
 		[self restartTimer];
 	}
 	timerFlag=!timerFlag;
-
+	
+	//[entryView becomeFirstResponder];
+	//[app activateIgnoringOtherApps:YES];
+	//[sender resignFirstResponder];
+	//[entryView setNeedsDisplay:YES];
 }
 
 - (NSRect)confinementRectForMenu:(NSMenu *)menu onScreen:(NSScreen *)screen
@@ -307,12 +340,6 @@
 	frame.size.height=479.000000;
 	*/
 	return NSZeroRect;
-}
-
-- (void)refreshMenu
-{
-	[self clearMenu];
-	[self retrieveData];
 }
 
 - (void)menuWillOpen:(NSMenu *)menu
@@ -337,7 +364,7 @@
 }
 - (void)menu:(NSMenu *)menu willHighlightItem:(NSMenuItem *)item
 {
-	printf("willHighlightItem:%d\n",[item tag]);
+	//printf("willHighlightItem:%d\n",[item tag]);
 	curMenuTag=[item tag];
 	if ([item tag]==11) {
 
@@ -373,6 +400,10 @@ int getDayOffYear(NSDate *inDate)
 
 - (void)minuterTimerAction
 {
+	
+	[self clearMenu];
+	[self retrieveData];
+	/*
 	minuValue=minuValue+1;
 	if (60==minuValue) {
 		hourValue=hourValue+1;
@@ -401,8 +432,7 @@ int getDayOffYear(NSDate *inDate)
 	NSMenuItem *curItem =[statusMenu itemWithTag:activeDayEntry->idV];
 	NSString *itemTitle =[NSString stringWithFormat:@"%02d:%02d %s > %s > %s",hourValue,minuValue, activeDayEntry->client,activeDayEntry->project,activeDayEntry->task];
 	[curItem setTitle:itemTitle];
-
-	[self performSelector:@selector(refreshMenu) withObject:nil afterDelay:0.5];
+*/
 }
 
 - (void)restartTimer
@@ -441,14 +471,29 @@ int getDayOffYear(NSDate *inDate)
 	[noteLabel setStringValue:tmpNoteStr];
 	noteStr = [[NSString stringWithString:tmpNoteStr]retain];
 	
-	NSString *dateStr = [NSString stringWithUTF8String:dayEntry->timer_started_at];
-	
-	// <timer_started_at type="datetime">Fri, 04 Mar 2011 15:23:51 +0000</timer_started_at>
-	// Convert string to date object
-	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss ZZZ"];
-	startDate = [[dateFormat dateFromString:dateStr] retain];  
-	[dateFormat release];
+	if (dayEntry->started_at[0]!=0) {
+		NSString *dateStr = [NSString stringWithUTF8String:dayEntry->started_at];
+		
+		//<started_at>10:04pm</started_at>
+		//h:mma
+		// Convert string to date object
+		NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+		[dateFormat setDateFormat:@"h:mma"];
+		startDate = [[dateFormat dateFromString:dateStr] retain];  
+		[dateFormat release];
+	}
+	else {
+		NSString *dateStr = [NSString stringWithUTF8String:dayEntry->timer_started_at];
+		
+		// <timer_started_at type="datetime">Fri, 04 Mar 2011 15:23:51 +0000</timer_started_at>
+		// Convert string to date object
+		NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+		[dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss ZZZ"];
+		startDate = [[dateFormat dateFromString:dateStr] retain];  
+		[dateFormat release];
+		
+	}
+
 
 	NSDateFormatter *showDateFormat = [[NSDateFormatter alloc] init];
 	[showDateFormat setDateFormat:@"HH:mm"];
@@ -509,6 +554,7 @@ int getDayOffYear(NSDate *inDate)
 	if (!hideLoginFlag) {
 		[self menuPreferences:self];
 	}
+	
 	NSString *acntStr=[accountAry objectAtIndex:0];
 	NSString *mailStr=[accountAry objectAtIndex:1];
 	NSString *passStr=[accountAry objectAtIndex:2];
